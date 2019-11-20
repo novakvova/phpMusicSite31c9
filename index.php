@@ -11,7 +11,12 @@ include_once "connection_database.php";
     {
         echo "My name is Vova ".$_GET["g"];
     }
-        
+    $sth = $dbh->prepare("SELECT Id, Email, IsLock FROM `tbl_users`");
+    $sth->execute();
+
+    $result = $sth->fetch(PDO::FETCH_ASSOC);
+    print_r($result);
+    echo isset($dbh)."My name is Vova ";
     ?>
 
 
