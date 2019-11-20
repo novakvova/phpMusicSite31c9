@@ -3,22 +3,33 @@ include "_header.php";
 include_once "connection_database.php";
 
 ?>
-
-
-    <h1>Hello PHP HomePage</h1>
+    <h1>Наші користувачі</h1>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Email</th>
+      <th scope="col">IsLock</th>
+    </tr>
+  </thead>
+  <tbody>
     <?php
-    if(isset($_GET['g'])and !empty($_GET['g']))
-    {
-        echo "My name is Vova ".$_GET["g"];
-    }
     $sth = $dbh->prepare("SELECT Id, Email, IsLock FROM `tbl_users`");
     $sth->execute();
-
-    $result = $sth->fetch(PDO::FETCH_ASSOC);
-    print_r($result);
-    echo isset($dbh)."My name is Vova ";
+    
+    while($result = $sth->fetch(PDO::FETCH_ASSOC))
+    {
+        echo '
+        <tr>
+            <th scope="row">'.$result["Id"].'</th>
+            <td>'.$result["Email"].'</td>
+            <td>'.$result["IsLock"].'</td>
+        </tr>
+        ';
+    }
     ?>
-
+  </tbody>
+</table>
 
 <?php
 include "_footer.php";
